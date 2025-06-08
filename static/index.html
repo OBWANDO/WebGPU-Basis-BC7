@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basis + WebGPU Adaptive (wgpu 0.25.2)</title>
+</head>
+<body style="margin:0;">
+    <canvas id="webgpu-canvas" width="1280" height="720"></canvas>
+
+    <script src="basis_transcoder.js"></script>
+    <script type="module">
+    import init, { start } from "./basis_webgpu_adaptive.js";
+
+    (async () => {
+        // 1️⃣ Load & instantiate the minimal transcoder
+        const BASISModule = await BASIS();
+        // ⚙️ Initialize its lookup tables
+        if (typeof BASISModule.initializeBasis === "function") {
+            BASISModule.initializeBasis();
+        }
+
+        // 2️⃣ Initialize its internal tables
+        if (BASISModule.initTranscoders) {
+        BASISModule.initTranscoders();
+        } 
+
+        // 3️⃣ Make it available to the Rust bindings
+        window.BASIS = BASISModule;
+
+        // 4️⃣ Initialize your Rust/WASM glue
+        await init();
+
+        // 5️⃣ Finally kick off your render + transcoding
+        await start();
+    })();
+    </script>
+</body>
+</html>

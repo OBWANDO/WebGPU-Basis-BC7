@@ -1,0 +1,29 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build WASM",
+      "type": "shell",
+      "command": ".\\build.bat",
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve WASM",
+      "type": "shell",
+      "command": ".\\serve.bat",
+      "problemMatcher": [],
+
+      // --- ADDED: Tell VS Code this task is a long-running server ---
+      //"isBackground": true
+    },
+    {
+      "label": "Start WASM Full Pipeline",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build WASM",
+        "Serve WASM"
+      ]
+    }
+  ]
+}

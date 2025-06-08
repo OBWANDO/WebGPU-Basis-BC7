@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+        "name": "Launch and Debug WASM in Chrome",
+        "type": "pwa-chrome",
+        "request": "launch",
+        "url": "http://localhost:8000",
+        "webRoot": "${workspaceFolder}/static",
+        "preLaunchTask": "Start WASM Full Pipeline",
+
+        // --- ADD THIS BLOCK TO FIX THE ERROR ---
+        "serverReadyAction": {
+            "action": "openExternally",
+            // IMPORTANT: Change this pattern to match your server's output!
+            // Use part of the message that appears when the server is ready.
+            "pattern": "Serving HTTP on|listening on"
+        }
+        },
+    ]
+}
